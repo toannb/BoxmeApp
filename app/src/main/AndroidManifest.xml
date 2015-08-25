@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="boxme.shipchung.com.boxmeapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppTheme">
+
+        <activity
+            android:name="com.shipchung.boxme.MainActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.shipchung.boxme.MenuFunctionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.PutawayActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.shipchung.boxme.PickupActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.shipchung.boxme.ChangeLocationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.shipchung.boxme.CheckItemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.PutawayMapingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.shipchung.boxme.PutawayedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.PickupMapingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"  />
+        <activity
+            android:name="com.shipchung.boxme.PickupedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.CreateReturnCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.CreateReturnCodeUpdatedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.ReturnActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.RestockReturnActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.UpdatedRestockReturnActivity"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

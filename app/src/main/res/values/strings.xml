@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Boxme App</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="xlistview_footer_hint_ready">Load more</string>
+    <string name="xlistview_footer_hint_normal">See more</string>
+    <string name="xlistview_header_hint_normal">Pull down to refresh</string>
+    <string name="xlistview_header_hint_ready">Refesh data release</string>
+    <string name="xlistview_header_hint_loading">Loading...</string>
+    <string name="xlistview_header_last_time">Last Updated：</string>
+
+    <string name="warehouse_management_system_label">Warehouse Management System</string>
+    <string name="main_screen_email_account_label">Your email account</string>
+    <string name="main_screen_password_label">Password</string>
+    <string name="main_screen_login_label">Login now</string>
+    <string name="main_screen_copyright">Power by Boxme JSC.,</string>
+
+    <string name="function_putaway">1. Putaway</string>
+    <string name="function_pickup">2. Pickup</string>
+    <string name="function_change_location">3. Change location</string>
+    <string name="function_check_item">4. Check item</string>
+    <string name="function_create_return_code">5. Create return code</string>
+    <string name="function_return">6. Return</string>
+    <string name="function_logout">7. Logout</string>
+    <string name="function_scan_shipment_number">Scan shipment number</string>
+    <string name="function_scan_uid">Scan UID</string>
+    <string name="function_status_accepted">Accepted</string>
+    <string name="function_status_damaged">Damaged</string>
+    <string name="function_status_stocked">Stocked</string>
+    <string name="function_item_returned">%1$d item returned</string>
+    
+    <string name="putaway_listing_label">1.1 PUTAWAY LISTING</string>
+    <string name="putaway_listing_remaining">Remaining </string>
+    <string name="putaway_listing_search">Search putaway listing</string>
+    <string name="putaway_listitem_amount_item">%1$d item</string>
+    <string name="putaway_listitem_time">Assigned on %1$s</string>
+    <string name="putaway_mapping_remain_uid">Remaining %1$d UID item</string>
+    <string name="putaway_mapping_scan_location_binid">Scan location BINID</string>
+    <string name="update_scan_new_binid">Scan new BIN ID location</string>
+    <string name="putaway_mapping_scan_uid_item">Scan UID item</string>
+    <string name="putaway_mapping_label">1.2 PUTAWAY MAPPING</string>
+    <string name="putawayed_label">Putawayed</string>
+    <string name="putawayed_remain_item_pickuped">%1$d UID items pickuped</string>
+    
+    <string name="pickup_listing_label">2.1 PICKUP LISTING</string>
+    <string name="pickup_search_pickup_listing">Search pickup listing</string>
+    <string name="pickup_mapping_remain">Remaining %1$d items (UID)</string>
+    
+    <string name="change_location_label">3.1 LOCATION</string>
+    <string name="change_location_update">UPDATE</string>
+
+    <string name="check_item_header_label">3.2 CHECKING UID ITEM</string>
+    <string name="create_return_code_scan_txt">Scan status code</string>
+    <string name="updated_label">Updated</string>
+    <string name="updated_item_return_remain">%1$d items returned</string>
+    <string name="return_tracker_label">Tracker</string>
+    <string name="return_scan_return_code">Scan return code</string>
+    
+    <string name="restock_return_label">6.1 Restock return</string>
+    <string name="restock_remain_order">Remaining %1$d order</string>
+
+
+</resources>

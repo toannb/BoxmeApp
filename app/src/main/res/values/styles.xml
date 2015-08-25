@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="RaiseColorButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="android:background">@android:color/holo_blue_light</item>
+        <item name="rd_rippleColor">#11000000</item>
+        <item name="rd_cornerRadius">4dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+    <style name="SnackBarMultiLine" parent="Material.Widget.SnackBar.Mobile.MultiLine">
+        <item name="sb_text">This is multi-line snackbar.\nIt will auto-close after 5s.</item>
+        <item name="sb_actionText"></item>
+        <item name="sb_duration">5000</item>
+    </style>
+
+</resources>

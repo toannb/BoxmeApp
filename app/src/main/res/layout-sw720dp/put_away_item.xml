@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:id="@+id/put_away_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="50dp"
+            android:text="PA123"/>
+        <ImageView
+            android:id="@+id/clear_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/put_away_item_name"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_clear_black_24dp"
+            android:visibility="gone"/>
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/put_away_item_mount_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="50dp"
+        android:textSize="20dp"
+        android:textColor="@color/hint_text_color"
+        android:text="@string/putaway_listitem_amount_item"/>
+    <TextView
+        android:id="@+id/put_away_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/hint_text_color"
+        android:text="@string/putaway_listitem_time"/>
+
+</LinearLayout>
