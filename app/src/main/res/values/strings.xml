@@ -3,6 +3,22 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="bsin_label">BSIN</string>
+    <string name="binid_change_to">BIN ID changed to </string>
+    <string name="picked_label"> picked</string>
+    <string name="picked_upcase_label">Picked</string>
+    <string name="minute_label"> minutes</string>
+    <string name="hour_label"> hours </string>
+    <string name="binid_label">BIN ID </string>
+    <string name="stock_at_label">Stocked at </string>
+    <string name="by_label">by </string>
+    <string name="on_label"> on </string>
+    <string name="product_label">Product: </string>
+    <string name="seller_label">Seller: </string>
+    <string name="size_label">Size: </string>
+    <string name="weight_label">Weight: </string>
+    <string name="gram_label"> gram</string>
+    <string name="pickuped_label">Pickuped</string>
 
     <string name="xlistview_footer_hint_ready">Load more</string>
     <string name="xlistview_footer_hint_normal">See more</string>
@@ -45,6 +61,7 @@
     <string name="putawayed_remain_item_pickuped">%1$d UID items pickuped</string>
     
     <string name="pickup_listing_label">2.1 PICKUP LISTING</string>
+    <string name="pickup_updating_label">2.2 PICKUP UPDATING</string>
     <string name="pickup_search_pickup_listing">Search pickup listing</string>
     <string name="pickup_mapping_remain">Remaining %1$d items (UID)</string>
     
@@ -60,6 +77,25 @@
     
     <string name="restock_return_label">6.1 Restock return</string>
     <string name="restock_remain_order">Remaining %1$d order</string>
+
+    <string name="error_putaway_not_found">Putaway is not found!</string>
+    <string name="error_uid_not_found">%1$s is not found</string>
+    <string name="error_putaway_not_putaway">This is not Putaway</string>
+    <string name="error_putaway_mapping_not_binid_uidy">This is not BINID or UID</string>
+    <string name="success">Success!</string>
+    <string name="error_0">The Internet has problem!</string>
+    <string name="error_401">Invalid username and password</string>
+    <string name="error_403">Lỗi liên quan đến oauth</string>
+    <string name="error_404">API is not found</string>
+    <string name="error_422">Lỗi tìm dữ liệu không có, dữ liệu không tồn tại</string>
+    <string name="error_502">Request Timeout</string>
+    <string name="success_change_change_location">Change Location Successfully!</string>
+    <string name="success_create_return_code">Create return code successfully!</string>
+    <string name="success_mapping_pickup">Mapping pickup successfully!</string>
+    <string name="success_mapping_putaway">Mapping putaway successfully!</string>
+    <string name="success_restock_uid_return">Restock successfully!</string>
+    <string name="success_undo_pickup">Undo pickup successfully!</string>
+    <string name="success_undo_putaway">Undo putaway successfully!</string>
 
 
 </resources>

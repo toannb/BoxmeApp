@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shipchung.adapter.PutawayedUIDItemAdapter;
 import com.shipchung.api.UndoPutAwayRequest;
@@ -109,7 +108,6 @@ public class PutawayedActivity extends Activity implements UndoPutAwayRequest.Un
             if (success){
                 Variables.mArrUIDPutawayed.remove(undoPos);
                 mAdapter.notifyDataSetChanged();
-                Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

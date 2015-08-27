@@ -56,7 +56,7 @@ public class PickupedActivity extends Activity implements UndoPickupRequest.Undo
 
     private void initView(){
         txtTitle = (TextView) findViewById(R.id.putawayed_title_id);
-        txtTitle.setText("Pickuped");
+        txtTitle.setText(getResources().getString(R.string.pickuped_label));
         txtRemainItemPickuped = (TextView) findViewById(R.id.putawayed_remain_item_pickuped);
         mArrData = new ArrayList<>();
         mArrData.add(new UIDItemBean(1, "bin1", "uid1", "product1", "", "statusname1", ""));

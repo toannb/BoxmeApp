@@ -6,10 +6,13 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import boxme.shipchung.com.boxmeapp.R;
 
 /**
  * Created by ToanNB on 8/11/2015.
@@ -17,7 +20,7 @@ import org.json.JSONObject;
 public class UndoPutAwayRequest {
     private UndoPutAwayRequestOnResult undoPutAwayRequestOnResult;
 
-    public void execute(Context context, String access_token, String uid) {
+    public void execute(final Context context, String access_token, String uid) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("access_token", access_token);
@@ -35,6 +38,8 @@ public class UndoPutAwayRequest {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String content = new String(responseBody);
+                String content1 = context.getResources().getString(R.string.success_undo_putaway);
+                Methods.successNotify(context, content1);
                 try {
                     if (undoPutAwayRequestOnResult != null) {
                         undoPutAwayRequestOnResult.onUndoPutAwayRequestOnResult(true, content);
@@ -53,9 +58,9 @@ public class UndoPutAwayRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure undoPutaway: " + statusCode);
-                String content = new String(responseBody);
+                Methods.checkError(context, statusCode);
                 if (undoPutAwayRequestOnResult != null) {
-                    undoPutAwayRequestOnResult.onUndoPutAwayRequestOnResult(false, content);
+
                 }
             }
         });

@@ -14,4 +14,7 @@
     <color name="colorControlActivated">#FF03A9F4</color>
     <color name="colorSwitchThumbNormal">#FF78909C</color>
     <color name="red">#ff0000</color>
+    <color name="success_color2">#4A90E2</color>
+    <color name="success_color">#7ED321</color>
+    <color name="error_color">#D0021B</color>
 </resources>

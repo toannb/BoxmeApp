@@ -65,7 +65,7 @@ public class PutawayedUIDItemAdapter extends BaseAdapter{
         holder.txtPutAwayName.setText(mArrData.get(pos).getUID());
         holder.txtPutAwayName.setTextColor(mContext.getResources().getColor(R.color.tree));
         holder.txtItemAmount.setText(mArrData.get(pos).getProductName());
-        holder.txtDate.setText("BIN ID " + mArrData.get(pos).getBinID());
+        holder.txtDate.setText(mContext.getResources().getString(R.string.binid_label) + mArrData.get(pos).getBinID());
         holder.imgClear.setVisibility(View.VISIBLE);
         holder.imgClear.setOnClickListener(new View.OnClickListener() {
             @Override

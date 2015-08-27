@@ -6,8 +6,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shipchung.config.Constants;
 
@@ -19,6 +26,8 @@ import java.util.UUID;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
+import boxme.shipchung.com.boxmeapp.R;
 
 /**
  * Created by ToanNB on 8/3/2015.
@@ -117,5 +126,57 @@ public class Methods {
         UUID deviceUuid = new UUID(androidId.hashCode(), ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
         String deviceId = deviceUuid.toString();
         return "and@" + deviceId;
+    }
+
+    public static void alertNotify(Context context, String content, int color) {
+        Activity activity = (Activity) context;
+        //Creating the LayoutInflater instance
+        LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //Getting the View object as defined in the customtoast.xml file
+        View layout = li.inflate(R.layout.custom_toast,
+                (ViewGroup) activity.findViewById(R.id.custom_toast_layout));
+        LinearLayout linearLayout = (LinearLayout) layout.findViewById(R.id.custom_toast_layout);
+        linearLayout.setBackgroundColor(color);
+        TextView txtContent = (TextView) layout.findViewById(R.id.content);
+        txtContent.setText(content);
+        //Creating the Toast object
+        Toast toast = new Toast(context);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+        toast.setView(layout);//setting the view of custom toast layout
+        for (int i = 0; i < 2; i++) {
+            toast.show();
+        }
+    }
+
+    public static void successNotify(Context context, String content) {
+        int color = context.getResources().getColor(R.color.success_color);
+        Methods.alertNotify(context, content, color);
+    }
+
+    public static void checkError(Context context, int statusCode) {
+        String content = "";
+        int color = context.getResources().getColor(R.color.error_color);
+        switch (statusCode) {
+            case 0:
+                content = context.getResources().getString(R.string.error_0);
+                break;
+            case 401:
+                content = context.getResources().getString(R.string.error_401);
+                break;
+            case 403:
+                content = context.getResources().getString(R.string.error_403);
+                break;
+            case 404:
+                content = context.getResources().getString(R.string.error_404);
+                break;
+            case 422:
+                content = context.getResources().getString(R.string.error_422);
+                break;
+            case 502:
+                content = context.getResources().getString(R.string.error_502);
+                break;
+        }
+        alertNotify(context, content, color);
     }
 }

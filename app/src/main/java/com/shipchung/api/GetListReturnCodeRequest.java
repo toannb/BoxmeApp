@@ -6,6 +6,7 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 
@@ -15,7 +16,7 @@ import org.apache.http.Header;
 public class GetListReturnCodeRequest {
     private GetListReturnCodeRequestOnResult getListReturnCodeRequestOnResult;
 
-    public void execute(Context context, String access_token) {
+    public void execute(final Context context, String access_token) {
         String url_get_list_return_code = Constants.URL_CREATE_RETURN_CODE + "?access_token=" + access_token;
         Log.d("link_get_return_code", url_get_list_return_code);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -48,10 +49,8 @@ public class GetListReturnCodeRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure getListReturnCode: " + statusCode);
-                String content = new String(responseBody);
-                Log.d("fail", "onFailure getListReturnCode: " + statusCode + "\n" + content);
+                Methods.checkError(context, statusCode);
                 if (getListReturnCodeRequestOnResult != null) {
-                    getListReturnCodeRequestOnResult.onGetListReturnCodeRequestOnResult(false, content);
                 }
             }
         });

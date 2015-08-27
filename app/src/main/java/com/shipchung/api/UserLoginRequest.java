@@ -6,6 +6,7 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
@@ -21,7 +22,7 @@ public class UserLoginRequest {
 
     private UserLoginRequestOnResult userLoginRequestOnResult;
 
-    public void execute(Context context, String userName, String password) {
+    public void execute(final Context context, String userName, String password) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("Username", userName);
@@ -79,10 +80,10 @@ public class UserLoginRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code","onFailure Login: " + statusCode);
-                String content = new String(responseBody);
-                Log.d("content", "onFailure Login: " + content);
+                String content = "";
+                Methods.checkError(context, statusCode);
                 if (userLoginRequestOnResult != null) {
-                    userLoginRequestOnResult.onUserLoginRequestOnResult(false, content);
+//                    userLoginRequestOnResult.onUserLoginRequestOnResult(false, content);
                 }
             }
         });

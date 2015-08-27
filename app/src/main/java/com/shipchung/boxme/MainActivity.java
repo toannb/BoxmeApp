@@ -2,16 +2,14 @@ package com.shipchung.boxme;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.rey.material.widget.SnackBar;
 import com.shipchung.api.UserLoginRequest;
 import com.shipchung.bean.UserInfoBean;
 import com.shipchung.config.Constants;
@@ -30,11 +28,10 @@ public class MainActivity extends Activity implements UserLoginRequest.UserLogin
     private EditText txtPassword;
     private Button btnLogin;
     private int errorCode;
-    private SnackBar mSnackBar;
     private String mUsername;
     private String mPassword;
 
-    private LoadingDialog mLoadingDialog;
+    private static LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +46,14 @@ public class MainActivity extends Activity implements UserLoginRequest.UserLogin
         txtEmailAccount = (EditText) findViewById(R.id.main_screen_account_email_txt);
         txtPassword = (EditText) findViewById(R.id.main_screen_password_txt);
         btnLogin = (Button) findViewById(R.id.main_screen_login_btn);
-        mSnackBar = (SnackBar) findViewById(R.id.main_sn);
-        mSnackBar.setVisibility(View.GONE);
-        mSnackBar.setBackgroundColor(Color.RED);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mSnackBar.getLayoutParams();
-//        params. = Gravity.TOP;
-//        mSnackBar.setLayoutParams(params);
-        mSnackBar.applyStyle(R.style.SnackBarMultiLine);
-        mSnackBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSnackBar.setVisibility(View.GONE);
-            }
-        });
+
+        SharedPreferences prefs = getSharedPreferences("UserData", 0);
+        String username = prefs.getString("username","");
+        String pwd = prefs.getString("password","");
+        if (username != "" && pwd != ""){
+            txtEmailAccount.setText(username);
+            txtPassword.setText(pwd);
+        }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +64,11 @@ public class MainActivity extends Activity implements UserLoginRequest.UserLogin
                 } else if (mPassword.equals("")){
                     Toast.makeText(getApplicationContext(), "Enter password, please!", Toast.LENGTH_LONG).show();
                 } else {
+                    SharedPreferences prefs = getSharedPreferences("UserData", 0);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("username", mUsername);
+                    editor.putString("password", mPassword);
+                    editor.commit();
                     userLogin();
                 }
             }
@@ -84,7 +81,7 @@ public class MainActivity extends Activity implements UserLoginRequest.UserLogin
         }
     }
 
-    private void hideDialog() {
+    public static void hideDialog() {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
@@ -92,8 +89,6 @@ public class MainActivity extends Activity implements UserLoginRequest.UserLogin
 
     private void userLogin() {
         showDialog();
-//        String username = "hanhhuudoan@gmail.com";
-//        String password = "kakaka123";
         UserLoginRequest userLoginRequest = new UserLoginRequest();
         userLoginRequest.execute(this, mUsername, mPassword);
         userLoginRequest.getUserLoginRequestOnResult(this);

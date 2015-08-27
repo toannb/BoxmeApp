@@ -24,6 +24,7 @@ public class PutAwayAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<PutAwayBean> mArrData;
     private LayoutInflater inflater = null;
+    private boolean enableFocus = true;
 
     public PutAwayAdapter(Context context, ArrayList<PutAwayBean> arrData){
         this.mContext = context;
@@ -72,6 +73,11 @@ public class PutAwayAdapter extends BaseAdapter {
         return convertView;
     }
 
+    @Override
+    public boolean isEnabled(int position) {
+        return enableFocus;
+    }
+
     private String getDate(long timeStamp){
         try {
             DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -87,5 +93,10 @@ public class PutAwayAdapter extends BaseAdapter {
         TextView txtPutAwayName;
         TextView txtItemAmount;
         TextView txtDate;
+    }
+
+    public void setEnableFocus(boolean enableFocus) {
+        this.enableFocus = enableFocus;
+//        notifyDataSetChanged();
     }
 }

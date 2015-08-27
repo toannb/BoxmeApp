@@ -59,8 +59,9 @@ public class ChangeLocationAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.txtPutAwayName.setText(mArrData.get(pos).getUid());
-        holder.txtItemAmount.setText("BSIN " + mArrData.get(pos).getBsin() + " - " + mArrData.get(pos).getProductName());
-        holder.txtDate.setText("BIN ID changed to " + mArrData.get(pos).getNewBinId());
+        holder.txtItemAmount.setText(mContext.getResources().getString(R.string.bsin_label)+" "
+                + mArrData.get(pos).getBsin() + " - " + mArrData.get(pos).getProductName());
+        holder.txtDate.setText(mContext.getString(R.string.binid_change_to) + mArrData.get(pos).getNewBinId());
 
         return convertView;
     }

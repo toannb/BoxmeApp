@@ -6,6 +6,7 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
@@ -14,13 +15,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import boxme.shipchung.com.boxmeapp.R;
+
 /**
  * Created by ToanNB on 8/17/2015.
  */
 public class ChangeLocationRequest {
     private ChangeLocationRequestOnResult changeLocationRequestOnResult;
 
-    public void execute(Context context, String access_token, String uid, String binid, String status) {
+    public void execute(final Context context, String access_token, String uid, String binid, String status) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("Uid", uid);
@@ -50,6 +53,8 @@ public class ChangeLocationRequest {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String content = new String(responseBody);
+                String content1 = context.getResources().getString(R.string.success_change_change_location);
+                Methods.successNotify(context, content1);
                 Log.d("success", "onSuccess ChangeLocation: " + statusCode);
                 try {
                     if (changeLocationRequestOnResult != null) {
@@ -73,10 +78,9 @@ public class ChangeLocationRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure ChangeLocation: " + statusCode);
-                String content = new String(responseBody);
-                Log.d("fail", "onFailure ChangeLocation: " + statusCode + "\n" + content);
+                Methods.checkError(context, statusCode);
                 if (changeLocationRequestOnResult != null) {
-                    changeLocationRequestOnResult.onChangeLocationRequestOnResult(false, content);
+//                    changeLocationRequestOnResult.onChangeLocationRequestOnResult(false, content);
                 }
             }
         });

@@ -30,17 +30,19 @@
         android:text="@string/putaway_mapping_remain_uid"
         android:visibility="gone" />
 
-    <AutoCompleteTextView
+    <TextView
         android:id="@+id/search_putaway_txt"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edittext_height"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
+        android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:ems="10"
         android:completionThreshold="1"
         android:background="@color/orange"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:hint="@string/putaway_listing_search" />
 
@@ -54,6 +56,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:background="@color/orange"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:hint="@string/putaway_mapping_scan_uid_item"
         android:visibility="visible" />

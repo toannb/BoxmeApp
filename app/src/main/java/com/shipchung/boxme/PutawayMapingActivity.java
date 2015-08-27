@@ -18,6 +18,7 @@ import com.shipchung.bean.UIDItemBean;
 import com.shipchung.config.Constants;
 import com.shipchung.config.Variables;
 import com.shipchung.custom.LoadingDialog;
+import com.shipchung.util.Methods;
 import com.shipchung.util.SwipeDetector;
 
 import org.json.JSONArray;
@@ -154,10 +155,15 @@ public class PutawayMapingActivity extends Activity implements
 //                }
                 if (first.equalsIgnoreCase("U") && sTemp.length() > 1) {
                     txtScanUidItem.setText((String) msg.obj);
-                } else if (sTemp.length() >= 8)
+                } else if (sTemp.length() >= 8) {
                     if (sTemp.contains("-")) {
                         txtScanLocalBINID.setText((String) msg.obj);
                     }
+                } else {
+                    String content = getResources().getString(R.string.error_putaway_mapping_not_binid_uidy);
+                    int color = getResources().getColor(R.color.error_color);
+                    Methods.alertNotify(PutawayMapingActivity.this, content, color);
+                }
 
                 Log.d("gettext1", "txtSccanLocalBINID.getText(): " + txtScanLocalBINID.getText().toString());
                 Log.d("gettext1", "txtUidItem.getText(): " + txtScanUidItem.getText().toString());
@@ -172,8 +178,21 @@ public class PutawayMapingActivity extends Activity implements
                 if (uid.length() > 0 && uid.equals(priviousUid)) {
                     isUidChanged = false;
                 } else if (uid.length() > 0 && !uid.equals(priviousUid)) {
-                    isUidChanged = true;
-                    priviousUid = uid;
+                    boolean isHasUid = false;
+                    for (int i = 0; i < mArrUIDItem.size(); i++){
+                        if (mArrUIDItem.get(i).getUID().equals(uid)){
+                            isUidChanged = true;
+                            priviousUid = uid;
+                            isHasUid = true;
+                        }
+                    }
+                    if (!isHasUid){
+                        String content = getResources().getString(R.string.error_uid_not_found);
+                        content = String.format(content, uid);
+                        int color = getResources().getColor(R.color.error_color);
+                        Methods.alertNotify(PutawayMapingActivity.this, content, color);
+                        txtScanUidItem.setText("");
+                    }
                 }
 
                 if (isBinIdChanged && isUidChanged && mArrUIDItem.size() > 0) {

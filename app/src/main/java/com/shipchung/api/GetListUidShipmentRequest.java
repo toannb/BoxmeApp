@@ -7,6 +7,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -19,7 +20,7 @@ public class GetListUidShipmentRequest {
 
     private GetListUidShipmentRequestOnResult listUidShipmentRequestOnResult;
 
-    public void execute(Context context, String access_token, String shipment_code, int page) {
+    public void execute(final Context context, String access_token, String shipment_code, int page) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("access_token", access_token);
@@ -69,10 +70,8 @@ public class GetListUidShipmentRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure getListUidShipment: " + statusCode);
-                String content = new String(responseBody);
+                Methods.checkError(context, statusCode);
                 if (listUidShipmentRequestOnResult != null) {
-                    Log.d("api_login: ", "onFailure getListUidShipment: " + content);
-                    listUidShipmentRequestOnResult.onGetListUidShipmentRequestOnResult(false, content);
                 }
             }
         });

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
@@ -14,13 +15,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import boxme.shipchung.com.boxmeapp.R;
+
 /**
  * Created by ToanNB on 8/20/2015.
  */
 public class RestockUidReturnRequest {
     private RestockUidReturnRequestOnResult restockUidReturnRequestOnResult;
 
-    public void execute(Context context, String access_token, String code, String uid, String bin) {
+    public void execute(final Context context, String access_token, String code, String uid, String bin) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("code", code);
@@ -49,6 +52,8 @@ public class RestockUidReturnRequest {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String content = new String(responseBody);
+                String content1 = context.getResources().getString(R.string.success_restock_uid_return);
+                Methods.successNotify(context, content1);
                 Log.d("success", "onSuccess restockUidReturn: " + statusCode);
                 try {
                     if (restockUidReturnRequestOnResult != null) {
@@ -72,10 +77,8 @@ public class RestockUidReturnRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure restockUidReturn: " + statusCode);
-                String content = new String(responseBody);
-                Log.d("fail", "onFailure restockUidReturn: " + statusCode + "\n" + content);
+                Methods.checkError(context, statusCode);
                 if (restockUidReturnRequestOnResult != null) {
-                    restockUidReturnRequestOnResult.onRestockUidReturnRequestOnResult(false, content);
                 }
             }
         });

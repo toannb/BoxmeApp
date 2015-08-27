@@ -7,6 +7,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -19,7 +20,7 @@ public class GetListPutAwayRequest {
 
     private GetListPutAwayRequestOnResult listPutAwayRequestOnResult;
 
-    public void execute(Context context, String access_token, String status, int page) {
+    public void execute(final Context context, String access_token, String status, int page) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("access_token", access_token);
@@ -69,10 +70,8 @@ public class GetListPutAwayRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure getListPutaway: " + statusCode);
-                String content = new String(responseBody);
+                Methods.checkError(context, statusCode);
                 if (listPutAwayRequestOnResult != null) {
-                    Log.d("api_login: ", "onFailure getListPutaway: " + content);
-                    listPutAwayRequestOnResult.onGetListPutAwayRequestOnResult(false, content);
                 }
             }
         });

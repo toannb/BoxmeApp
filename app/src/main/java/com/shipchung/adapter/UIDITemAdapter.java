@@ -84,7 +84,7 @@ public class UIDITemAdapter extends BaseAdapter {
         }
         holder.txtPutAwayName.setText(mArrData.get(pos).getUID());
         holder.txtItemAmount.setText(mArrData.get(pos).getProductName());
-        holder.txtDate.setText("BIN ID " + mArrData.get(pos).getBinID());
+        holder.txtDate.setText(mContext.getResources().getString(R.string.binid_label) + mArrData.get(pos).getBinID());
         if (flag == 2){
             holder.txtPutAwayName.setText(mArrData.get(pos).getUID());
             holder.txtItemAmount.setText(mArrData.get(pos).getSku() + "-" + mArrData.get(pos).getProductName());

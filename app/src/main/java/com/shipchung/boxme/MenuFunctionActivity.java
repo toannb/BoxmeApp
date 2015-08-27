@@ -3,6 +3,7 @@ package com.shipchung.boxme;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
@@ -42,6 +43,14 @@ public class MenuFunctionActivity extends Activity implements View.OnClickListen
         txtReturn = (TextView) findViewById(R.id.return_txt);
         txtLogout = (TextView) findViewById(R.id.logout_txt);
         txtUserName.setText(Variables.mUserInfo.getFullName());
+
+        txtPutaway.setText(Html.fromHtml(getResources().getString(R.string.function_putaway)));
+        txtPickup.setText(Html.fromHtml(getResources().getString(R.string.function_pickup)));
+        txtChangeLocation.setText(Html.fromHtml(getResources().getString(R.string.function_change_location)));
+        txtCheckItem.setText(Html.fromHtml(getResources().getString(R.string.function_check_item)));
+        txtCreateReturnCode.setText(Html.fromHtml(getResources().getString(R.string.function_create_return_code)));
+        txtReturn.setText(Html.fromHtml(getResources().getString(R.string.function_return)));
+        txtLogout.setText(Html.fromHtml(getResources().getString(R.string.function_logout)));
 
         txtPutaway.setOnClickListener(this);
         txtPickup.setOnClickListener(this);

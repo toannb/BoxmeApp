@@ -7,6 +7,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
@@ -15,13 +16,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import boxme.shipchung.com.boxmeapp.R;
+
 /**
  * Created by ToanNB on 8/11/2015.
  */
 public class MapPutawayRequest {
     private MapPutAwayRequestOnResult mapPutAwayRequestOnResult;
 
-    public void execute(Context context, String access_token, String uid, String binid) {
+    public void execute(final Context context, String access_token, String uid, String binid) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("BinIDSuggestion", binid);
@@ -53,6 +56,8 @@ public class MapPutawayRequest {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String content = new String(responseBody);
+                String content1 = context.getResources().getString(R.string.success_mapping_putaway);
+                Methods.successNotify(context, content1);
                 Log.d("success", "onSuccess Mapping: " + statusCode);
                 try {
                     if (mapPutAwayRequestOnResult != null) {
@@ -76,10 +81,9 @@ public class MapPutawayRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure mapPutawayRequest: " + statusCode);
-                String content = new String(responseBody);
-                Log.d("fail", "onFailure Mapping: " + statusCode + "\n" + content);
+                Methods.checkError(context, statusCode);
                 if (mapPutAwayRequestOnResult != null) {
-                    mapPutAwayRequestOnResult.onMapPutAwayRequestOnResult(false, content);
+//                    mapPutAwayRequestOnResult.onMapPutAwayRequestOnResult(false, content);
                 }
             }
         });

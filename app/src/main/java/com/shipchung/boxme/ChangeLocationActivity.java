@@ -67,7 +67,7 @@ public class ChangeLocationActivity extends Activity implements ChangeLocationRe
         mListView = (ListView) findViewById(R.id.putaway_mapping_listview);
 
         txtScanUidItem.setHint(getResources().getString(R.string.putaway_mapping_scan_uid_item));
-        txtScanUidItem.setHint(getResources().getString(R.string.update_scan_new_binid));
+        txtScanBinIdLocation.setHint(getResources().getString(R.string.update_scan_new_binid));
         txtRemain.setVisibility(View.GONE);
         txtLocationLabel.setText(getResources().getString(R.string.change_location_label));
         txtUpdateLabel.setText(getResources().getString(R.string.change_location_update));

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -18,7 +19,7 @@ public class GetDetailReturnRequest {
 
     private GetDetailReturnRequestOnResult detailReturnRequestOnResult;
 
-    public void execute(Context context, String access_token, String return_code) {
+    public void execute(final Context context, String access_token, String return_code) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("access_token", access_token);
@@ -66,11 +67,8 @@ public class GetDetailReturnRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure getDetailReturn: " + statusCode);
-                String content = new String(responseBody);
-                Log.d("status_http", "onFailure getDetailReturn: " + statusCode);
+                Methods.checkError(context, statusCode);
                 if (detailReturnRequestOnResult != null) {
-                    Log.d("api_login: ", "onFailure: " + content);
-                    detailReturnRequestOnResult.onGetDetailReturnRequestOnResult(false, content);
                 }
             }
         });

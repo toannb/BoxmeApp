@@ -79,7 +79,7 @@ public class PickupMapingActivity extends Activity implements
 
         Log.d("gettext", "txtUidItem.getText(): " + txtScanUidItem.getText().toString());
         txtScanLocalBinID.setVisibility(View.GONE);
-        txtheader.setText("2.2 PICKUP UPDATING");
+        txtheader.setText(getResources().getString(R.string.pickup_updating_label));
         txtPickupName.setText(mPickupCode);
 
         final SwipeDetector swipeDetector = new SwipeDetector(this, mPickupCode, 3);

@@ -171,8 +171,9 @@ public class CheckItemActivity extends Activity implements GetUidRequest.GetUidR
             String historyProduct = "";
             for (int j = 0; j < arrHistorySize; j++){
                 String[] str = new String[arrHistorySize];
-                str[j] = "Stocked at " + arrHistory.get(j).getLocation() + "\n"
-                        +"by " + arrHistory.get(j).getEmployee() + " on " + getDate(Long.parseLong(arrHistory.get(j).getCreated())) + "\n"
+                str[j] = getResources().getString(R.string.stock_at_label) + arrHistory.get(j).getLocation()+ " " + "\n"
+                        + getResources().getString(R.string.by_label) + " " + arrHistory.get(j).getEmployee() + " " +
+                        getResources().getString(R.string.on_label) + " "+ getDate(Long.parseLong(arrHistory.get(j).getCreated())) + "\n"
                         +arrHistory.get(j).getHistory()+"\n\n";
                 historyProduct += str[j];
             }
@@ -183,11 +184,12 @@ public class CheckItemActivity extends Activity implements GetUidRequest.GetUidR
                 new DownloadImageTask(imgProduct).execute(photoUrl);
             }
 
-            String productDetail =    "Product: " + productName + "\n"
-                                    + "BIN ID: " + binid + "\n"
-                                    + "Seller: " + seller + "\n"
-                                    + "Size: " + size + "\n"
-                                    + "Weight: " + weight + " gram";
+            String productDetail =    getResources().getString(R.string.product_label) + " "+ productName + "\n"
+                                    + getResources().getString(R.string.binid_label)+":" + " "+ binid + "\n"
+                                    + getResources().getString(R.string.seller_label) + " "+ seller + "\n"
+                                    + getResources().getString(R.string.size_label) + " "+ size + "\n"
+                                    + getResources().getString(R.string.weight_label) +  " "+weight + " "
+                                    + getResources().getString(R.string.gram_label);
             txtProductDetail.setText(productDetail);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.shipchung.config.Constants;
+import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
@@ -15,13 +16,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import boxme.shipchung.com.boxmeapp.R;
+
 /**
  * Created by ToanNB on 8/20/2015.
  */
 public class CreateReturnCodeRequest {
     private CreateReturnCodeRequestOnResult createReturnCodeRequestOnResult;
 
-    public void execute(Context context, String access_token, JSONArray jsonArray) {
+    public void execute(final Context context, String access_token, JSONArray jsonArray) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("data", jsonArray);
@@ -47,8 +50,10 @@ public class CreateReturnCodeRequest {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String content = new String(responseBody);
                 Log.d("success", "onSuccess Create Return Code: " + statusCode);
+                String content = new String(responseBody);
+                String content1 = context.getResources().getString(R.string.success_create_return_code);
+                Methods.successNotify(context, content1);
                 try {
                     if (createReturnCodeRequestOnResult != null) {
                         createReturnCodeRequestOnResult.onCreateReturnCodeRequestOnResult(true, content);
@@ -71,10 +76,8 @@ public class CreateReturnCodeRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure CreateReturnCode: " + statusCode);
-                String content = new String(responseBody);
-                Log.d("fail", "onFailure CreateReturnCode: " + statusCode + "\n" + content);
+                Methods.checkError(context, statusCode);
                 if (createReturnCodeRequestOnResult != null) {
-                    createReturnCodeRequestOnResult.onCreateReturnCodeRequestOnResult(false, content);
                 }
             }
         });
