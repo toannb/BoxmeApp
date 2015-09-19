@@ -109,7 +109,6 @@ public class PickupAdapter extends BaseAdapter {
         } catch (Exception e){
             return "Fail to convert date";
         }
-
     }
 
     @Override

@@ -78,5 +78,24 @@
     <string name="restock_return_label">6.1 TÁI NHẬP HÀNG HOÀN</string>
     <string name="restock_remain_order">Còn %1$d đơn</string>
 
+    <string name="error_putaway_not_found">Mã Putaway không được tìm thấy!</string>
+    <string name="error_uid_not_found">%1$s không được tìm thấy</string>
+    <string name="error_putaway_not_putaway">Không phải mã Putaway</string>
+    <string name="error_putaway_mapping_not_binid_uidy">Không phải BINID hay UID</string>
+    <string name="success">Thành công!</string>
+    <string name="error_0">Có vấn đề về mạng Internet!</string>
+    <string name="error_401">Tài khoản hoặc mật khẩu không chính xác</string>
+    <string name="error_403">Lỗi liên quan đến oauth</string>
+    <string name="error_404">API không tìm thấy</string>
+    <string name="error_422">Lỗi tìm dữ liệu không có, dữ liệu không tồn tại</string>
+    <string name="error_502">Request Timeout</string>
+    <string name="success_change_change_location">Đổi vị trí thành công!</string>
+    <string name="success_create_return_code">Thành công!</string>
+    <string name="success_mapping_pickup">Thành công!</string>
+    <string name="success_mapping_putaway">Thành công!</string>
+    <string name="success_restock_uid_return">Thành công!</string>
+    <string name="success_undo_pickup">Thành công!</string>
+    <string name="success_undo_putaway">Thành công!</string>
+
 
 </resources>

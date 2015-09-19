@@ -157,7 +157,7 @@ public class PutawayActivity extends Activity implements GetListPutAwayRequest.G
                         if (!isHasPutaway) {
                             String content = getResources().getString(R.string.error_putaway_not_found);
                             int color = getResources().getColor(R.color.error_color);
-                            Methods.alertNotify(getApplicationContext(), content, color);
+                            Methods.alertNotify(PutawayActivity.this, content, color);
                         }
                         txtSearchPutAway.setText("");
                     } else {

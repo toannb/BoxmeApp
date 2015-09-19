@@ -5,19 +5,19 @@ package com.shipchung.config;
  */
 public class Constants {
     public static final String KEYCODE                                  = "";
-    public static final String URL_LOGIN                                = "http://devwms.boxme.vn/api/oauth";
-    public static final String GET_LIST_PUT_AWAY                        = "http://devwms.boxme.vn/api/put_away";
-    public static final String URL_PUT_AWAY                             = "http://devwms.boxme.vn/api/put_away/";
-    public static final String URL_PUT_AWAY_MAPPING                     = "http://devwms.boxme.vn/api/put_away_mapping/";
-    public static final String URL_PUT_AWAY_UNDO                        = "http://devwms.boxme.vn/api/undo_put_away_mapping/";
-    public static final String URL_PICKUP                               = "http://devwms.boxme.vn/api/pickup";
-    public static final String URL_PICKUP_ITEM                          = "http://devwms.boxme.vn/api/pickup_items/";
-    public static final String URL_PICKUP_UNDO                          = "http://devwms.boxme.vn/api/undo_pickup/";
-    public static final String URL_UID                                  = "http://devwms.boxme.vn/api/uid/";
-    public static final String URL_CHANGE_LOCATION                      = "http://devwms.boxme.vn/api/re_stock_uid";
-    public static final String URL_GET_UID_SHIPMENT                     = "http://devwms.boxme.vn/api/tracking_listing";
-    public static final String URL_CREATE_RETURN_CODE                   = "http://devwms.boxme.vn/api/return_listing";
-    public static final String URL_RESTOCK_UID_RETURN                   = "http://devwms.boxme.vn/api/put_return_uid";
+    public static final String URL_LOGIN                                = "http://wms.boxme.vn/api/oauth";
+    public static final String GET_LIST_PUT_AWAY                        = "http://wms.boxme.vn/api/put_away";
+    public static final String URL_PUT_AWAY                             = "http://wms.boxme.vn/api/put_away/";
+    public static final String URL_PUT_AWAY_MAPPING                     = "http://wms.boxme.vn/api/put_away_mapping/";
+    public static final String URL_PUT_AWAY_UNDO                        = "http://wms.boxme.vn/api/undo_put_away_mapping/";
+    public static final String URL_PICKUP                               = "http://wms.boxme.vn/api/pickup";
+    public static final String URL_PICKUP_ITEM                          = "http://wms.boxme.vn/api/pickup_items/";
+    public static final String URL_PICKUP_UNDO                          = "http://wms.boxme.vn/api/undo_pickup/";
+    public static final String URL_UID                                  = "http://wms.boxme.vn/api/uid/";
+    public static final String URL_CHANGE_LOCATION                      = "http://wms.boxme.vn/api/re_stock_uid";
+    public static final String URL_GET_UID_SHIPMENT                     = "http://wms.boxme.vn/api/tracking_listing";
+    public static final String URL_CREATE_RETURN_CODE                   = "http://wms.boxme.vn/api/return_listing";
+    public static final String URL_RESTOCK_UID_RETURN                   = "http://wms.boxme.vn/api/put_return_uid";
 
     public static final String TOKEN_TYPE                               = "token_type";
     public static final String SCOPE                                    = "scope";
