@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+
     <TextView
         android:id="@+id/putawayed_title_id"
         android:layout_width="wrap_content"
@@ -12,7 +13,8 @@
         android:layout_marginTop="50dp"
         android:textSize="50dp"
         android:textColor="@color/tree"
-        android:text="@string/putawayed_label"/>
+        android:text="@string/putawayed_label" />
+
     <TextView
         android:id="@+id/putawayed_remain_item_pickuped"
         android:layout_width="wrap_content"
@@ -20,13 +22,28 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/hint_text_color"
-        android:text="@string/putawayed_remain_item_pickuped"/>
-    <ListView
-        android:id="@+id/putawayed_listview"
+        android:text="@string/putawayed_remain_item_pickuped" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:divider="@null"/>
+        android:orientation="vertical">
 
+        <ListView
+            android:id="@+id/putawayed_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:divider="@null" />
+
+        <Button
+            android:id="@+id/btnBackPutawayMapping"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textAllCaps="false"
+            android:text="Quay lại"
+            android:visibility="gone" />
+    </LinearLayout>
 </LinearLayout>

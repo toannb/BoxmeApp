@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/line_item_oder_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="Order Name"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/line_item_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Product Name: "
+        android:textColor="@color/hint_text_color"/>
+    <TextView
+        android:id="@+id/line_item_sku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sku: "
+        android:textColor="@color/hint_text_color"/>
+    <TextView
+        android:id="@+id/line_item_pickup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pickup: "
+        android:textColor="@color/hint_text_color"/>
+
+</LinearLayout>

@@ -65,11 +65,11 @@ public class PickupAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.txtPickupCode.setText(mArrData.get(pos).getPickupCode());
-        String itemAmount = mContext.getResources().getString(R.string.putaway_listitem_amount_item) + " "+ mContext.getResources().getString(R.string.picked_label);
+        String itemAmount = mArrData.get(pos).getStatusName() + " " + mContext.getResources().getString(R.string.putaway_listitem_amount_item);
         holder.txtItemAmount.setText(String.format(itemAmount, mArrData.get(pos).getTotalUID()));
         String date = mContext.getResources().getString(R.string.putaway_listitem_time);
         String s = mArrData.get(pos).getCreateTime();
-        long timeStamp = Long.parseLong(s);
+        long timeStamp = Long.parseLong(s) * 1000;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
         String createTime = getDate(timeStamp);
@@ -81,15 +81,15 @@ public class PickupAdapter extends BaseAdapter {
             long diffInMinute = diff / 60000;
             int day;
             if (diffInMinute < 60){
-                strDiff = diffInMinute + mContext.getResources().getString(R.string.minute_label);
+                strDiff = diffInMinute + " " + mContext.getResources().getString(R.string.minute_label);
             } else if (diffInMinute >= 60){
                 int diffInHour = (int) diffInMinute / 60;
                 int minute = (int) diffInMinute - diffInHour * 60;
                 if (minute == 0){
-                    strDiff = diffInHour + mContext.getResources().getString(R.string.hour_label);
+                    strDiff = diffInHour + " " + mContext.getResources().getString(R.string.hour_label);
                 } else if (minute > 0){
-                    strDiff = diffInHour + mContext.getResources().getString(R.string.hour_label)
-                            + minute + mContext.getResources().getString(R.string.minute_label);
+                    strDiff = diffInHour + " " + mContext.getResources().getString(R.string.hour_label)
+                            + minute + " " + mContext.getResources().getString(R.string.minute_label);
                 }
             }
         } catch (ParseException e) {

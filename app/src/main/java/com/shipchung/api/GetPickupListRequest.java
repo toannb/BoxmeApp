@@ -32,7 +32,7 @@ public class GetPickupListRequest {
         RequestParams lvParams = new RequestParams();
         lvParams.put("params", data);
         String url_map_pickup = Constants.URL_PICKUP +
-                "?access_token=" + access_token+ "&status=Assigned";
+                "?access_token=" + access_token+ "&status=Assigned,Partially Picked";
         Log.d("url_", url_map_pickup);
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(30000);

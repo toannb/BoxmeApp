@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.shipchung.boxme.ChangeLocationActivity;
 import com.shipchung.config.Constants;
 import com.shipchung.util.Methods;
 
@@ -78,6 +79,7 @@ public class ChangeLocationRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure ChangeLocation: " + statusCode);
+                ChangeLocationActivity.hideDialog();
                 Methods.checkError(context, statusCode);
                 if (changeLocationRequestOnResult != null) {
 //                    changeLocationRequestOnResult.onChangeLocationRequestOnResult(false, content);

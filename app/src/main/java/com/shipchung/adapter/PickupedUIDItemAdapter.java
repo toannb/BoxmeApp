@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.shipchung.bean.UIDItemBean;
 import com.shipchung.boxme.PickupedActivity;
-import com.shipchung.config.Variables;
 
 import java.util.ArrayList;
 
@@ -65,7 +64,7 @@ public class PickupedUIDItemAdapter extends BaseAdapter{
         }
         holder.txtPutAwayName.setText(mArrData.get(pos).getUID());
         holder.txtPutAwayName.setTextColor(mContext.getResources().getColor(R.color.tree));
-        holder.txtItemAmount.setText(mContext.getResources().getString(R.string.bsin_label) + " " + Variables.mArrUIDPickuped.get(pos).getBSIN() + " - "
+        holder.txtItemAmount.setText(mContext.getResources().getString(R.string.bsin_label) + " " + mArrData.get(pos).getBSIN() + " - "
                 +mArrData.get(pos).getProductName());
         holder.txtDate.setText(mContext.getResources().getString(R.string.picked_upcase_label));
         holder.imgClear.setVisibility(View.VISIBLE);

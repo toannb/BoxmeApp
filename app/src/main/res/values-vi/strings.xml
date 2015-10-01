@@ -59,11 +59,17 @@
     <string name="putaway_mapping_label">1.2 CẬP NHẬT VỊ TRÍ LƯU KHO</string>
     <string name="putawayed_label">Đã đặt lên kệ</string>
     <string name="putawayed_remain_item_pickuped">%1$d UID sản phẩm đã lấy</string>
+    <string name="putaway_mapping_btn_next_putawayed">%1$d sản phẩm đã nhập kho &gt;&gt;</string>
+    <string name="putawayed_btn_back">&lt;&lt; Quay lại</string>
+    <string name="putaway_mapping_scan_binid_first">Bạn phải quét mã vị trí trước khi quét mã sản phẩm</string>
     
     <string name="pickup_listing_label">2.1 DANH SÁCH LẤY HÀNG</string>
     <string name="pickup_updating_label">2.2 CẬP NHẬT ĐÃ LẤY HÀNG</string>
     <string name="pickup_search_pickup_listing">Quét mã lấy hàng</string>
+    <string name="pickup_mapping_btn_next_picked">%1$d Đơn hàng đã lấy &gt;&gt;</string>
+    <string name="pickup_search_order">Tìm kiếm đơn hàng</string>
     <string name="pickup_mapping_remain">Đang còn %1$d sản phẩm (UID)</string>
+    <string name="pickup_order_remain">Đang còn %1$d đơn hàng, %2$d sản phẩm (UID)</string>
     
     <string name="change_location_label">3.1 VỊ TRÍ</string>
     <string name="change_location_update">CẬP NHẬT</string>

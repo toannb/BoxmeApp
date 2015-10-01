@@ -1,13 +1,14 @@
 package com.shipchung.boxme;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,7 +20,6 @@ import com.shipchung.config.Constants;
 import com.shipchung.config.Variables;
 import com.shipchung.custom.LoadingDialog;
 import com.shipchung.util.Methods;
-import com.shipchung.util.SwipeDetector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +36,7 @@ import boxme.shipchung.com.boxmeapp.R;
  */
 public class PutawayMapingActivity extends Activity implements
         GetDetailPutAwayRequest.GetDetailPutAwayRequestOnResult,
-        MapPutawayRequest.MapPutAwayRequestOnResult {
+        MapPutawayRequest.MapPutAwayRequestOnResult, View.OnClickListener {
 
     private TextView txtRemainUidItem;
     private TextView txtScanLocalBINID;
@@ -47,13 +47,14 @@ public class PutawayMapingActivity extends Activity implements
     private ListView mListView;
     private UIDITemAdapter mAdapter;
 
-    private LoadingDialog mLoadingDialog;
+    private static LoadingDialog mLoadingDialog;
 
-    private String mUID;
+    private String mUID = "";
     private String priviousBinID = "";
     private String priviousUid = "";
     private boolean isBinIdChanged = false;
     private boolean isUidChanged = false;
+    private Button btnNextPutawayed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,11 @@ public class PutawayMapingActivity extends Activity implements
     }
 
     public void initView() {
+        btnNextPutawayed = (Button) findViewById(R.id.btnNextPutawayed);
+        String uidPutawayed = getResources().getString(R.string.putaway_mapping_btn_next_putawayed);
+        btnNextPutawayed.setText(String.format(uidPutawayed, Variables.mArrUIDPutawayed.size()));
+        btnNextPutawayed.setVisibility(View.VISIBLE);
+        btnNextPutawayed.setOnClickListener(this);
         txtRemainUidItem = (TextView) findViewById(R.id.putaway_mapping_uid_remaining_txt);
         txtScanLocalBINID = (TextView) findViewById(R.id.scan_location_binid_txt);
         txtScanUidItem = (TextView) findViewById(R.id.putaway_mapping_scan_uid_item_txt);
@@ -83,7 +89,7 @@ public class PutawayMapingActivity extends Activity implements
 
 
         txtPutawayName.setText(mCodePutaway);
-
+        /*
         final SwipeDetector swipeDetector = new SwipeDetector(this, mCodePutaway, 0);
         mListView.setOnTouchListener(swipeDetector);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,6 +101,7 @@ public class PutawayMapingActivity extends Activity implements
                 }
             }
         });
+        */
     }
 
     Timer timer = null;
@@ -109,7 +116,9 @@ public class PutawayMapingActivity extends Activity implements
         }
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            super.onBackPressed();
+            Intent intentBack = new Intent(getApplicationContext(), PutawayActivity.class);
+            startActivity(intentBack);
+            finish();
         }
 
         if (timer == null) {
@@ -147,12 +156,6 @@ public class PutawayMapingActivity extends Activity implements
                 //do nothing
             } else {
                 String first = sTemp.substring(0, 1);
-//                try {
-//                    int x = Integer.parseInt(first);
-//                    txtScanUidItem.setText((String) msg.obj);
-//                } catch (Exception e) {
-//                    txtScanLocalBINID.setText(sTemp);
-//                }
                 if (first.equalsIgnoreCase("U") && sTemp.length() > 1) {
                     txtScanUidItem.setText((String) msg.obj);
                 } else if (sTemp.length() >= 8) {
@@ -175,9 +178,16 @@ public class PutawayMapingActivity extends Activity implements
                     isBinIdChanged = true;
                     priviousBinID = binid;
                 }
+                if (!isBinIdChanged){
+                    txtScanUidItem.setText("");
+                    String content = getResources().getString(R.string.putaway_mapping_scan_binid_first);
+                    int color = getResources().getColor(R.color.error_color);
+                    Methods.alertNotify(PutawayMapingActivity.this, content, color);
+                }
                 if (uid.length() > 0 && uid.equals(priviousUid)) {
                     isUidChanged = false;
-                } else if (uid.length() > 0 && !uid.equals(priviousUid)) {
+                    txtScanUidItem.setText("");
+                } else if (uid.length() > 0 && isBinIdChanged) {
                     boolean isHasUid = false;
                     for (int i = 0; i < mArrUIDItem.size(); i++){
                         if (mArrUIDItem.get(i).getUID().equals(uid)){
@@ -196,24 +206,14 @@ public class PutawayMapingActivity extends Activity implements
                 }
 
                 if (isBinIdChanged && isUidChanged && mArrUIDItem.size() > 0) {
+                    mUID = uid;
                     mapPutAway(uid, binid);
-                    int size = mArrUIDItem.size();
-                    for (int i = 0; i <= size - 1; i++) {
-                        if (mArrUIDItem.get(i).getUID().equals(uid)) {
-                            Variables.mArrUIDPutawayed.add(mArrUIDItem.get(i));
-                            mArrUIDItem.remove(mArrUIDItem.get(i));
-                            mAdapter.notifyDataSetChanged();
-                            PutawayedActivity putawayedActivity = new PutawayedActivity();
-                            putawayedActivity.updateData();
-                            i--;
-                            size--;
-                        }
-                    }
                 }
             }
         }
 
     };
+
 
     private void showDialog() {
         if (mLoadingDialog != null && !mLoadingDialog.isShowing()) {
@@ -221,7 +221,7 @@ public class PutawayMapingActivity extends Activity implements
         }
     }
 
-    private void hideDialog() {
+    public static void hideDialog() {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
@@ -275,5 +275,36 @@ public class PutawayMapingActivity extends Activity implements
     public void onMapPutAwayRequestOnResult(boolean result, String data) {
         hideDialog();
         Log.d("mapPutAwayResult", "mapPutAwayResult: " + data);
+        if (Variables.mStatusCode == 200){
+            int size = mArrUIDItem.size();
+            for (int i = 0; i <= size - 1; i++) {
+                if (mArrUIDItem.get(i).getUID().equals(mUID)) {
+                    Variables.mArrUIDPutawayed.add(mArrUIDItem.get(i));
+                    String uidPutawayed = getResources().getString(R.string.putaway_mapping_btn_next_putawayed);
+                    btnNextPutawayed.setText(String.format(uidPutawayed, Variables.mArrUIDPutawayed.size()));
+                    mArrUIDItem.remove(mArrUIDItem.get(i));
+                    String string = getResources().getString(R.string.putaway_mapping_remain_uid);
+                    txtRemainUidItem.setText(String.format(string, mArrUIDItem.size()));
+                    mAdapter.notifyDataSetChanged();
+                    PutawayedActivity putawayedActivity = new PutawayedActivity();
+                    putawayedActivity.updateData();
+                    i--;
+                    size--;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id){
+            case R.id.btnNextPutawayed:
+                Intent intent = new Intent(getApplicationContext(), PutawayedActivity.class);
+                intent.putExtra("code_putaway", mCodePutaway);
+                startActivity(intent);
+                finish();
+                break;
+        }
     }
 }

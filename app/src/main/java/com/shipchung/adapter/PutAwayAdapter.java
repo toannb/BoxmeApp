@@ -67,7 +67,7 @@ public class PutAwayAdapter extends BaseAdapter {
         holder.txtItemAmount.setText(String.format(itemAmount, mArrData.get(pos).getNumberUID()));
         String date = mContext.getResources().getString(R.string.putaway_listitem_time);
         String s = mArrData.get(pos).getCreateTime();
-        long timeStamp = Long.parseLong(s);
+        long timeStamp = Long.parseLong(s) * 1000;
         holder.txtDate.setText(String.format(date, getDate(timeStamp)));
 
         return convertView;

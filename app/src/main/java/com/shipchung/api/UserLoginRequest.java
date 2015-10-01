@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.shipchung.boxme.MainActivity;
 import com.shipchung.config.Constants;
 import com.shipchung.util.Methods;
 
@@ -81,6 +82,7 @@ public class UserLoginRequest {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code","onFailure Login: " + statusCode);
                 String content = "";
+                MainActivity.hideDialog();
                 Methods.checkError(context, statusCode);
                 if (userLoginRequestOnResult != null) {
 //                    userLoginRequestOnResult.onUserLoginRequestOnResult(false, content);

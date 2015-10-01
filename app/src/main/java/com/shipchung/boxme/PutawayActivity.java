@@ -35,7 +35,7 @@ import boxme.shipchung.com.boxmeapp.R;
  * Created by ToanNB on 7/31/2015.
  */
 public class PutawayActivity extends Activity implements GetListPutAwayRequest.GetListPutAwayRequestOnResult,
-        AdapterView.OnItemClickListener{
+        AdapterView.OnItemClickListener {
 
     private TextView txtHeaderTitle;
     private TextView txtPutAwayRemain;
@@ -77,12 +77,14 @@ public class PutawayActivity extends Activity implements GetListPutAwayRequest.G
         mListView.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if (current_page <= page_count){
+                if (current_page <= page_count) {
                     getListPutAway();
                 }
                 mListView.onLoadMoreComplete();
             }
         });
+
+        Variables.mArrUIDPutawayed.clear();
     }
 
     Timer timer = null;
@@ -99,10 +101,10 @@ public class PutawayActivity extends Activity implements GetListPutAwayRequest.G
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             super.onBackPressed();
         }
-        if (keyCode == KeyEvent.ACTION_DOWN){
+        if (keyCode == KeyEvent.ACTION_DOWN) {
             mPutAwayAdapter.setEnableFocus(false);
         }
-        if (keyCode == KeyEvent.ACTION_UP){
+        if (keyCode == KeyEvent.ACTION_UP) {
             mPutAwayAdapter.setEnableFocus(true);
         }
 
@@ -128,7 +130,9 @@ public class PutawayActivity extends Activity implements GetListPutAwayRequest.G
             }, 0, 100);
 
         }
-        mPutAwayAdapter.setEnableFocus(false);
+        if (mPutAwayAdapter != null) {
+            mPutAwayAdapter.setEnableFocus(false);
+        }
         return true;
     }
 
@@ -143,22 +147,12 @@ public class PutawayActivity extends Activity implements GetListPutAwayRequest.G
             } else {
                 if (sTemp.length() >= 5) {
                     sTemp = sTemp.trim();
-                    if (sTemp.substring(0, 2).equals("PA")) {
+                    if (sTemp.substring(0, 2).equals("PA") && sTemp.length() > 3) {
                         txtSearchPutAway.setText(sTemp);
-                        boolean isHasPutaway = false;
-                        for (int i = 0; i < mArrPutaway.size(); i++) {
-                            if (mArrPutaway.get(i).equals(sTemp)) {
-                                isHasPutaway = true;
-                                Intent intent = new Intent(getBaseContext(), PutawayMapingActivity.class);
-                                intent.putExtra("code_putaway", sTemp);
-                                startActivity(intent);
-                            }
-                        }
-                        if (!isHasPutaway) {
-                            String content = getResources().getString(R.string.error_putaway_not_found);
-                            int color = getResources().getColor(R.color.error_color);
-                            Methods.alertNotify(PutawayActivity.this, content, color);
-                        }
+                        Intent intent = new Intent(getBaseContext(), PutawayMapingActivity.class);
+                        intent.putExtra("code_putaway", sTemp);
+                        startActivity(intent);
+                        finish();
                         txtSearchPutAway.setText("");
                     } else {
                         String content = getResources().getString(R.string.error_putaway_not_putaway);
@@ -167,8 +161,9 @@ public class PutawayActivity extends Activity implements GetListPutAwayRequest.G
                     }
                 }
             }
-
-            mPutAwayAdapter.setEnableFocus(true);
+            if (mPutAwayAdapter != null) {
+                mPutAwayAdapter.setEnableFocus(true);
+            }
         }
     };
 
@@ -234,6 +229,7 @@ public class PutawayActivity extends Activity implements GetListPutAwayRequest.G
         Intent intent = new Intent(getBaseContext(), PutawayMapingActivity.class);
         intent.putExtra("code_putaway", mArrPutaway.get(pos));
         startActivity(intent);
+        finish();
     }
 
 }

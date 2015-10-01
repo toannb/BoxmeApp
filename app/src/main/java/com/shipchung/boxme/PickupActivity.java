@@ -11,14 +11,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shipchung.adapter.PickupAdapter;
+import com.shipchung.api.GetOrderItemsRequest;
 import com.shipchung.api.GetPickupListRequest;
+import com.shipchung.bean.LineItem;
 import com.shipchung.bean.PickupBean;
 import com.shipchung.config.Constants;
 import com.shipchung.config.Variables;
 import com.shipchung.custom.LoadingDialog;
+import com.shipchung.util.Methods;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +35,8 @@ import boxme.shipchung.com.boxmeapp.R;
 /**
  * Created by ToanNB on 7/31/2015.
  */
-public class PickupActivity extends Activity implements GetPickupListRequest.GetPickupRequestOnResult, AdapterView.OnItemClickListener{
+public class PickupActivity extends Activity implements GetPickupListRequest.GetPickupRequestOnResult,
+        AdapterView.OnItemClickListener, GetOrderItemsRequest.GetOrderItemsRequestOnResult {
 
     private TextView txtPickUpLabel;
     private TextView txtSearchPickup;
@@ -42,6 +45,9 @@ public class PickupActivity extends Activity implements GetPickupListRequest.Get
     private ArrayList<PickupBean> mArrData;
     private PickupAdapter mPickupAdapter;
     private LoadingDialog mLoadingDialog;
+    private String mOrderCode= "";
+    private String mPickupCode = "";
+    private int mStatusCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +59,7 @@ public class PickupActivity extends Activity implements GetPickupListRequest.Get
         getListPickup();
     }
 
-    public void initView(){
+    public void initView() {
         txtPickUpLabel = (TextView) findViewById(R.id.putaway_listing_txt);
         txtSearchPickup = (TextView) findViewById(R.id.search_putaway_txt);
         txtScanUid = (TextView) findViewById(R.id.putaway_mapping_scan_uid_txt);
@@ -103,7 +109,9 @@ public class PickupActivity extends Activity implements GetPickupListRequest.Get
                 }
             }, 0, 100);
         }
-        mPickupAdapter.setEnableFocus(false);
+        if (mPickupAdapter != null) {
+            mPickupAdapter.setEnableFocus(false);
+        }
         return true;
     }
 
@@ -118,43 +126,50 @@ public class PickupActivity extends Activity implements GetPickupListRequest.Get
             } else {
                 if (sTemp.length() >= 5) {
                     sTemp = sTemp.trim();
-                    if (sTemp.substring(0, 2).equals("PK")) {
-                        txtSearchPickup.setText(sTemp);
+                    if (sTemp.substring(0, 2).equalsIgnoreCase("PK") && sTemp.length() > 3) {
+                        mPickupCode = sTemp;
                         boolean isHasPickup = false;
-                        for (int i = 0; i < mArrData.size(); i++) {
-                            if (mArrData.get(i).getPickupCode().equals(sTemp)) {
+                        for (int i = 0; i < mArrData.size(); i++){
+                            if (mArrData.get(i).getPickupCode().equalsIgnoreCase(mPickupCode)){
                                 isHasPickup = true;
-                                Intent intent = new Intent(getBaseContext(), PickupMapingActivity.class);
-                                intent.putExtra("pickup_code", mArrData.get(i).getPickupCode());
-                                startActivity(intent);
+                                Intent intentListOrder = new Intent(getApplicationContext(), PickupListingOrderActivity.class);
+                                intentListOrder.putExtra("pickup_code", mPickupCode);
+                                startActivity(intentListOrder);
+                                finish();
                             }
                         }
                         if (!isHasPickup) {
-                            Toast.makeText(getApplicationContext(), "Item is not found!", Toast.LENGTH_LONG).show();
+                            String content = getResources().getString(R.string.error_pickup_not_found);
+                            int color = getResources().getColor(R.color.error_color);
+                            Methods.alertNotify(PickupActivity.this, content, color);
                         }
-                        txtSearchPickup.setText("");
                     } else {
-                        Toast.makeText(getApplicationContext(), "This is not Pickup!", Toast.LENGTH_LONG).show();
+                        String content = getResources().getString(R.string.error_pickup_not_pickup);
+                        int color = getResources().getColor(R.color.error_color);
+                        Methods.alertNotify(PickupActivity.this, content, color);
                     }
                 }
             }
-            mPickupAdapter.setEnableFocus(true);
+            if (mPickupAdapter != null) {
+                mPickupAdapter.setEnableFocus(true);
+            }
         }
     };
 
-    private void showDialog(){
-        if(mLoadingDialog != null && !mLoadingDialog.isShowing()){
+    private void showDialog() {
+        if (mLoadingDialog != null && !mLoadingDialog.isShowing()) {
             mLoadingDialog.show();
         }
     }
-    private void hideDialog(){
-        if(mLoadingDialog != null && mLoadingDialog.isShowing()){
+
+    private void hideDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
     }
 
-    public void getListPickup(){
-        showDialog();
+    public void getListPickup() {
+//        showDialog();
         GetPickupListRequest pickupListRequest = new GetPickupListRequest();
         pickupListRequest.execute(this, Variables.mUserInfo.getAccessToken());
         pickupListRequest.getPickupRequestOnResult(this);
@@ -162,7 +177,7 @@ public class PickupActivity extends Activity implements GetPickupListRequest.Get
 
     @Override
     public void onGetPickupRequestOnResult(boolean result, String data) {
-        hideDialog();
+//        hideDialog();
         Log.d("getPickupOnResult", "getPickupOnResult: " + data);
         try {
             JSONObject jsonResultObject = new JSONObject(data);
@@ -171,7 +186,7 @@ public class PickupActivity extends Activity implements GetPickupListRequest.Get
             JSONArray jsonArrayPickup = jsonObjectEmbeded.getJSONArray(Constants.PICKUP);
             int TotalUID, TotalSKU, PickupID, TotalOrder, Status;
             String PickupCode, StatusName, EmployeeName, UpdateTime, AssignName, EmployeeCode, CreateTime;
-            for (int i = 0; i < jsonArrayPickup.length(); i++){
+            for (int i = 0; i < jsonArrayPickup.length(); i++) {
                 JSONObject jsonObjectTemp = jsonArrayPickup.getJSONObject(i);
                 TotalUID = jsonObjectTemp.getInt(Constants.TOTALUID);
                 TotalSKU = jsonObjectTemp.getInt(Constants.TOTALSKU);
@@ -188,19 +203,65 @@ public class PickupActivity extends Activity implements GetPickupListRequest.Get
                 mArrData.add(new PickupBean(TotalUID, TotalSKU, PickupID, PickupCode, StatusName,
                         TotalOrder, EmployeeName, Status, UpdateTime, AssignName, EmployeeCode, CreateTime));
             }
-//            mPickupAdapter.notifyDataSetChanged();
+            mPickupAdapter.notifyDataSetChanged();
 
-            mPickupAdapter = new PickupAdapter(this, mArrData);
-            mListView.setAdapter(mPickupAdapter);
+//            mPickupAdapter = new PickupAdapter(this, mArrData);
+//            mListView.setAdapter(mPickupAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+
+    private void getOrderItemsPickup() {
+        showDialog();
+        GetOrderItemsRequest orderItemsRequest = new GetOrderItemsRequest();
+        orderItemsRequest.execute(this, Variables.mUserInfo.getAccessToken(), mOrderCode);
+        orderItemsRequest.getOrderItemsRequestOnResult(this);
+    }
+
+    @Override
+    public void onGetOrderItemsRequestOnResult(boolean result, String data) {
+        hideDialog();
+        Log.d("detailPickupOnResult", "getDetailPickupOnResult: " + data);
+        Variables.mArrLineItem.clear();
+        try {
+            JSONObject jsonResult = new JSONObject(data);
+            mPickupCode = jsonResult.getString(Constants.PICKUPCODE);
+            for (int k = 0; k < mArrData.size(); k++){
+                if (mArrData.get(k).getPickupCode().equals(mPickupCode)){
+                    if (Variables.mStatusCode == 200) {
+                        Intent intent = new Intent(getBaseContext(), PickupMapingActivity.class);
+                        intent.putExtra("order_code", mOrderCode);
+                        intent.putExtra("pickup_code", mPickupCode);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+            JSONArray jsonArrayItem = jsonResult.getJSONArray(Constants.LINEITEM);
+            for (int i = 0; i < jsonArrayItem.length(); i++) {
+                JSONObject tempJSONObject = jsonArrayItem.getJSONObject(i);
+                String orderNumber = tempJSONObject.getString(Constants.ORDERNUMBER);
+                String sku = tempJSONObject.getString(Constants.SKU);
+                int quantityPickup = tempJSONObject.getInt(Constants.QUANTITYPICKUP);
+                int quantity = tempJSONObject.getInt(Constants.QUANTITY);
+                String productName = tempJSONObject.getString(Constants.PRODUCTNAME);
+
+                Variables.mArrLineItem.add(new LineItem(orderNumber, sku, quantityPickup, quantity, productName));
+            }
+//            mAdapter.notifyDataSetChanged();
+        } catch (JSONException e) {
+            e.fillInStackTrace();
+        }
+    }
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-        Intent intent = new Intent(getBaseContext(), PickupMapingActivity.class);
-        intent.putExtra("pickup_code", mArrData.get(pos).getPickupCode());
-        startActivity(intent);
+        Intent intentListOrder = new Intent(getApplicationContext(), PickupListingOrderActivity.class);
+        intentListOrder.putExtra("pickup_code", mArrData.get(pos).getPickupCode());
+        startActivity(intentListOrder);
+        finish();
     }
 }

@@ -7,6 +7,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.shipchung.config.Constants;
+import com.shipchung.config.Variables;
 import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
@@ -16,11 +17,12 @@ import org.json.JSONObject;
 /**
  * Created by ToanNB on 8/5/2015.
  */
-public class GetDetailPickupRequest {
+public class GetOrderItemsRequest {
 
-    private GetDetailPickupRequestOnResult detailPickupRequestOnResult;
+    private GetOrderItemsRequestOnResult getOrderItemsRequestOnResult;
 
     public void execute(final Context context, String access_token, String pickup_code) {
+        final int[] status_code = new int[1];
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("access_token", access_token);
@@ -32,9 +34,9 @@ public class GetDetailPickupRequest {
 
         RequestParams lvParams = new RequestParams();
         lvParams.put("params", data);
-        Log.d("api_login: ","execute: " + data);
-        String url_detail_pickup = Constants.URL_PICKUP_ITEM + pickup_code +
-                "?access_token=" + access_token;
+        Log.d("api_login: ", "execute: " + data);
+        String url_detail_pickup = Constants.URL_PICKUP_ORDER_ITEM + pickup_code +
+                "?access_token=" + access_token + "&key=map";
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(30000);
@@ -42,27 +44,29 @@ public class GetDetailPickupRequest {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Variables.mStatusCode = 0;
+                Variables.mStatusCode = statusCode;
                 String content = new String(responseBody);
                 Log.d("status_http", "onSuccess getDetailPickup: " + statusCode);
                 Log.d("content ", "onSuccess getDetailPickup: " + content);
                 try {
-                    if (detailPickupRequestOnResult != null) {
-                        detailPickupRequestOnResult.onGetDetailPickupRequestOnResult(true, content);
+                    if (getOrderItemsRequestOnResult != null) {
+                        getOrderItemsRequestOnResult.onGetOrderItemsRequestOnResult(true, content);
                     }
                 } catch (NullPointerException e) {
                     Log.d("api_login: ", "onSuccess: " + "NullPointerException");
-                    if (detailPickupRequestOnResult != null) {
-                        detailPickupRequestOnResult.onGetDetailPickupRequestOnResult(false, content);
+                    if (getOrderItemsRequestOnResult != null) {
+                        getOrderItemsRequestOnResult.onGetOrderItemsRequestOnResult(false, content);
                     }
                 } catch (Exception e) {
                     Log.d("api_login: ", "onSuccess: " + "Exception");
-                    if (detailPickupRequestOnResult != null) {
-                        detailPickupRequestOnResult.onGetDetailPickupRequestOnResult(false, content);
+                    if (getOrderItemsRequestOnResult != null) {
+                        getOrderItemsRequestOnResult.onGetOrderItemsRequestOnResult(false, content);
                     }
                 } catch (OutOfMemoryError e) {
                     Log.d("api_login: ", "onSuccess: " + "OutOfMemoryError");
-                    if (detailPickupRequestOnResult != null) {
-                        detailPickupRequestOnResult.onGetDetailPickupRequestOnResult(false, content);
+                    if (getOrderItemsRequestOnResult != null) {
+                        getOrderItemsRequestOnResult.onGetOrderItemsRequestOnResult(false, content);
                     }
                 }
             }
@@ -71,18 +75,20 @@ public class GetDetailPickupRequest {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure getDetailPickup: " + statusCode);
                 Log.d("status_http", "onFailure getDetailPickup: " + statusCode);
+                Variables.mStatusCode = 0;
+                Variables.mStatusCode = statusCode;
                 Methods.checkError(context, statusCode);
-                if (detailPickupRequestOnResult != null) {
+                if (getOrderItemsRequestOnResult != null) {
                 }
             }
         });
     }
 
-    public void getDetailPickupRequestOnResult(GetDetailPickupRequestOnResult detailPickupRequestOnResult) {
-        this.detailPickupRequestOnResult = detailPickupRequestOnResult;
+    public void getOrderItemsRequestOnResult(GetOrderItemsRequestOnResult getOrderItemsRequestOnResult) {
+        this.getOrderItemsRequestOnResult = getOrderItemsRequestOnResult;
     }
 
-    public interface GetDetailPickupRequestOnResult {
-        void onGetDetailPickupRequestOnResult(boolean result, String data);
+    public interface GetOrderItemsRequestOnResult {
+        void onGetOrderItemsRequestOnResult(boolean result, String data);
     }
 }

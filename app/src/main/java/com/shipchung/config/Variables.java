@@ -1,5 +1,6 @@
 package com.shipchung.config;
 
+import com.shipchung.bean.LineItem;
 import com.shipchung.bean.PutAwayBean;
 import com.shipchung.bean.UIDItemBean;
 import com.shipchung.bean.UserInfoBean;
@@ -17,6 +18,7 @@ public class Variables {
     public static ArrayList<UIDItemBean> mArrUidUpdated = new ArrayList<>();
     public static ArrayList<UIDItemBean> mArrUidShipment = new ArrayList<>();
     public static ArrayList<UIDItemBean> mArrUidUpdatedRestockReturn = new ArrayList<>();
+    public static ArrayList<LineItem> mArrLineItem = new ArrayList<>();
     public static String shipment_code = "";
-    public static int total_item = 0;
+    public static int mStatusCode = 0;
 }

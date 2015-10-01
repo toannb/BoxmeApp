@@ -53,6 +53,9 @@ public class MainActivity extends Activity implements UserLoginRequest.UserLogin
         if (username != "" && pwd != ""){
             txtEmailAccount.setText(username);
             txtPassword.setText(pwd);
+            mUsername = username;
+            mPassword = pwd;
+            userLogin();
         }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

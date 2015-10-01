@@ -6,7 +6,9 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.shipchung.boxme.PutawayMapingActivity;
 import com.shipchung.config.Constants;
+import com.shipchung.config.Variables;
 import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
@@ -25,6 +27,7 @@ public class MapPutawayRequest {
     private MapPutAwayRequestOnResult mapPutAwayRequestOnResult;
 
     public void execute(final Context context, String access_token, String uid, String binid) {
+        Variables.mStatusCode = -1;
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("BinIDSuggestion", binid);
@@ -55,6 +58,7 @@ public class MapPutawayRequest {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Variables.mStatusCode = statusCode;
                 String content = new String(responseBody);
                 String content1 = context.getResources().getString(R.string.success_mapping_putaway);
                 Methods.successNotify(context, content1);
@@ -80,7 +84,9 @@ public class MapPutawayRequest {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Variables.mStatusCode = statusCode;
                 Log.d("status_code", "onFailure mapPutawayRequest: " + statusCode);
+                PutawayMapingActivity.hideDialog();
                 Methods.checkError(context, statusCode);
                 if (mapPutAwayRequestOnResult != null) {
 //                    mapPutAwayRequestOnResult.onMapPutAwayRequestOnResult(false, content);

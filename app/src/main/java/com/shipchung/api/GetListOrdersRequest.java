@@ -16,11 +16,12 @@ import org.json.JSONObject;
 /**
  * Created by ToanNB on 8/5/2015.
  */
-public class GetDetailPickupRequest {
+public class GetListOrdersRequest {
 
-    private GetDetailPickupRequestOnResult detailPickupRequestOnResult;
+    private GetListOrdersRequestOnResult getListOrdersRequestOnResult;
 
     public void execute(final Context context, String access_token, String pickup_code) {
+        final int[] status_code = new int[1];
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("access_token", access_token);
@@ -32,9 +33,9 @@ public class GetDetailPickupRequest {
 
         RequestParams lvParams = new RequestParams();
         lvParams.put("params", data);
-        Log.d("api_login: ","execute: " + data);
-        String url_detail_pickup = Constants.URL_PICKUP_ITEM + pickup_code +
-                "?access_token=" + access_token;
+        Log.d("api_login: ", "execute: " + data);
+        String url_detail_pickup = Constants.URL_LIST_ORDER + pickup_code +
+                "?access_token=" + access_token + "&page_size=1000";
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(30000);
@@ -46,23 +47,23 @@ public class GetDetailPickupRequest {
                 Log.d("status_http", "onSuccess getDetailPickup: " + statusCode);
                 Log.d("content ", "onSuccess getDetailPickup: " + content);
                 try {
-                    if (detailPickupRequestOnResult != null) {
-                        detailPickupRequestOnResult.onGetDetailPickupRequestOnResult(true, content);
+                    if (getListOrdersRequestOnResult != null) {
+                        getListOrdersRequestOnResult.onGetListOrdersRequestOnResult(true, content);
                     }
                 } catch (NullPointerException e) {
                     Log.d("api_login: ", "onSuccess: " + "NullPointerException");
-                    if (detailPickupRequestOnResult != null) {
-                        detailPickupRequestOnResult.onGetDetailPickupRequestOnResult(false, content);
+                    if (getListOrdersRequestOnResult != null) {
+                        getListOrdersRequestOnResult.onGetListOrdersRequestOnResult(false, content);
                     }
                 } catch (Exception e) {
                     Log.d("api_login: ", "onSuccess: " + "Exception");
-                    if (detailPickupRequestOnResult != null) {
-                        detailPickupRequestOnResult.onGetDetailPickupRequestOnResult(false, content);
+                    if (getListOrdersRequestOnResult != null) {
+                        getListOrdersRequestOnResult.onGetListOrdersRequestOnResult(false, content);
                     }
                 } catch (OutOfMemoryError e) {
                     Log.d("api_login: ", "onSuccess: " + "OutOfMemoryError");
-                    if (detailPickupRequestOnResult != null) {
-                        detailPickupRequestOnResult.onGetDetailPickupRequestOnResult(false, content);
+                    if (getListOrdersRequestOnResult != null) {
+                        getListOrdersRequestOnResult.onGetListOrdersRequestOnResult(false, content);
                     }
                 }
             }
@@ -72,17 +73,17 @@ public class GetDetailPickupRequest {
                 Log.d("status_code", "onFailure getDetailPickup: " + statusCode);
                 Log.d("status_http", "onFailure getDetailPickup: " + statusCode);
                 Methods.checkError(context, statusCode);
-                if (detailPickupRequestOnResult != null) {
+                if (getListOrdersRequestOnResult != null) {
                 }
             }
         });
     }
 
-    public void getDetailPickupRequestOnResult(GetDetailPickupRequestOnResult detailPickupRequestOnResult) {
-        this.detailPickupRequestOnResult = detailPickupRequestOnResult;
+    public void getListOrdersRequestOnResult(GetListOrdersRequestOnResult getListOrdersRequestOnResult) {
+        this.getListOrdersRequestOnResult = getListOrdersRequestOnResult;
     }
 
-    public interface GetDetailPickupRequestOnResult {
-        void onGetDetailPickupRequestOnResult(boolean result, String data);
+    public interface GetListOrdersRequestOnResult {
+        void onGetListOrdersRequestOnResult(boolean result, String data);
     }
 }

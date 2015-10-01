@@ -98,6 +98,15 @@
         android:text="Create"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/ico_new"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btnNextPutawayed"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:textAllCaps="false"
+            android:text="Sản phẩm đã lấy >>"
+            android:textSize="25dp"
+            android:visibility="gone"/>
     </LinearLayout>
 </LinearLayout>

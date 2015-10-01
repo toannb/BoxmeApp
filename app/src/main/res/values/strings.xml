@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Boxme App</string>
+    <string name="app_name">Boxme Dev</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -19,6 +19,7 @@
     <string name="weight_label">Weight: </string>
     <string name="gram_label"> gram</string>
     <string name="pickuped_label">Pickuped</string>
+    <string name="product_name_label">Product Name: </string>
 
     <string name="xlistview_footer_hint_ready">Load more</string>
     <string name="xlistview_footer_hint_normal">See more</string>
@@ -51,7 +52,7 @@
     <string name="putaway_listing_remaining">Remaining </string>
     <string name="putaway_listing_search">Search putaway listing</string>
     <string name="putaway_listitem_amount_item">%1$d item</string>
-    <string name="putaway_listitem_time">Assigned on %1$s</string>
+    <string name="putaway_listitem_time">Created on %1$s</string>
     <string name="putaway_mapping_remain_uid">Remaining %1$d UID item</string>
     <string name="putaway_mapping_scan_location_binid">Scan location BINID</string>
     <string name="update_scan_new_binid">Scan new BIN ID location</string>
@@ -59,11 +60,17 @@
     <string name="putaway_mapping_label">1.2 PUTAWAY MAPPING</string>
     <string name="putawayed_label">Putawayed</string>
     <string name="putawayed_remain_item_pickuped">%1$d UID items pickuped</string>
+    <string name="putaway_mapping_btn_next_putawayed">%1$d UID putawayed &gt;&gt;</string>
+    <string name="putawayed_btn_back">&lt;&lt; Back</string>
+    <string name="putaway_mapping_scan_binid_first">You have to scan BINID before scan UID</string>
     
     <string name="pickup_listing_label">2.1 PICKUP LISTING</string>
     <string name="pickup_updating_label">2.2 PICKUP UPDATING</string>
-    <string name="pickup_search_pickup_listing">Search pickup listing</string>
+    <string name="pickup_search_pickup_listing">Search Order listing</string>
     <string name="pickup_mapping_remain">Remaining %1$d items (UID)</string>
+    <string name="pickup_mapping_btn_next_picked">%1$d Order picked &gt;&gt;</string>
+    <string name="pickup_search_order">Search order</string>
+    <string name="pickup_order_remain">Remaining %1$d Order, %2$d UID</string>
     
     <string name="change_location_label">3.1 LOCATION</string>
     <string name="change_location_update">UPDATE</string>
@@ -89,6 +96,10 @@
     <string name="error_404">API is not found</string>
     <string name="error_422">Lỗi tìm dữ liệu không có, dữ liệu không tồn tại</string>
     <string name="error_502">Request Timeout</string>
+    <string name="error_not_order">This is not Order</string>
+    <string name="error_pickup_not_pickup">This is not Pickup</string>
+    <string name="error_not_uid">This is not UID!</string>
+    <string name="error_pickup_not_found">Pickup is not found or closed!</string>
     <string name="success_change_change_location">Change Location Successfully!</string>
     <string name="success_create_return_code">Create return code successfully!</string>
     <string name="success_mapping_pickup">Mapping pickup successfully!</string>
@@ -96,6 +107,7 @@
     <string name="success_restock_uid_return">Restock successfully!</string>
     <string name="success_undo_pickup">Undo pickup successfully!</string>
     <string name="success_undo_putaway">Undo putaway successfully!</string>
+
 
 
 </resources>

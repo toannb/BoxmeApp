@@ -2,6 +2,7 @@ package com.shipchung.boxme;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -90,6 +91,9 @@ public class MenuFunctionActivity extends Activity implements View.OnClickListen
                 startActivity(intent5);
                 break;
             case R.id.logout_txt:
+                SharedPreferences.Editor editor = getSharedPreferences("UserData", 0).edit();
+                editor.clear(); //clear all stored data
+                editor.commit();
                 Intent intentLogout = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intentLogout);
                 break;

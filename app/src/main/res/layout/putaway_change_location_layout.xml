@@ -59,20 +59,36 @@
         android:textColor="@color/white"
         android:hint="@string/putaway_mapping_scan_uid_item" />
 
-    <TextView
-        android:id="@+id/scan_status_txt"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/orange"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="8dp"
-        android:gravity="center_vertical"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        android:hint="@string/create_return_code_scan_txt"
-        android:visibility="gone" />
+        android:layout_marginTop="10dp">
+
+        <Spinner
+            android:id="@+id/spinner_status"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingLeft="-10dp"
+            android:background="@color/orange"
+            android:gravity="center_vertical" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/btnSpinnerArrow"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ico_arrow" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -105,12 +121,5 @@
                 android:src="@drawable/ico_new"
                 android:visibility="gone" />
         </com.andexert.library.RippleView>
-        <Button
-            android:id="@+id/btnNextPutawayed"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textAllCaps="false"
-            android:text="Sản phẩm đã lấy >>"
-            android:visibility="gone"/>
     </LinearLayout>
 </LinearLayout>

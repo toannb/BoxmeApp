@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.shipchung.boxme.PickupMapingActivity;
 import com.shipchung.config.Constants;
+import com.shipchung.config.Variables;
 import com.shipchung.util.Methods;
 
 import org.apache.http.Header;
@@ -23,19 +25,17 @@ import boxme.shipchung.com.boxmeapp.R;
 public class MapPickupRequest {
     private MapPickupRequestOnResult mapPickupRequestOnResult;
 
-    public void execute(final Context context, String access_token, String pickup_code, String uid, String binid) {
+    public void execute(final Context context, String access_token,String uid, String order_code) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("UID", uid);
-            jsonObject.put("BinID", binid);
-            jsonObject.put("Action", "Update");
         } catch (JSONException e) {
             e.fillInStackTrace();
         }
         String data = jsonObject.toString();
         Log.d("data_mapping", "data: " + data);
 
-        String url_map_pickup = Constants.URL_PICKUP + "/" + pickup_code +
+        String url_map_pickup = Constants.URL_UPDATE_PICKUP + order_code +
                 "?access_token=" + access_token;
         Log.d("link_mapping", url_map_pickup);
         StringEntity entity = null;
@@ -52,6 +52,8 @@ public class MapPickupRequest {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Variables.mStatusCode = 0;
+                Variables.mStatusCode = statusCode;
                 String content = new String(responseBody);
                 String content1 = context.getResources().getString(R.string.success_mapping_pickup);
                 Methods.successNotify(context, content1);
@@ -79,7 +81,10 @@ public class MapPickupRequest {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("status_code", "onFailure MapPickupRequest: " + statusCode);
+                Variables.mStatusCode = 0;
+                Variables.mStatusCode = statusCode;
                 Methods.checkError(context, statusCode);
+                PickupMapingActivity.hideDialog();
                 if (mapPickupRequestOnResult != null) {
                 }
             }

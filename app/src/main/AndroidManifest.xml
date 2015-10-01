@@ -72,6 +72,9 @@
         <activity
             android:name="com.shipchung.boxme.UpdatedRestockReturnActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shipchung.boxme.PickupListingOrderActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
